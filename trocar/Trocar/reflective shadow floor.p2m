@@ -1,0 +1,8 @@
+"diffuse_factor" 1
+"illum" "model_16.p2a"
+"num_cols" 1
+"reflectivity" 
+"roughness" 0.000000
+"specular_factor" 
+"swP2M" on
+"sw_shader" TransparentFloor
