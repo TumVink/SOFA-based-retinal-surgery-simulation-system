@@ -1,0 +1,7 @@
+<Node name="root" dt="0.01" gravity="0 -9.81 0">
+    <Mesh name="mesh" filename="mesh/dragon.obj" />
+    <MeshObjLoader name="loader" filename="../models/needle/needle_tapped_onlypart_400.obj" />
+    <MechanicalObject src="@loader" template="Vec3d" name="mecha" showObject="1" />
+    <TetrahedronSetTopologyContainer src="@loader" name="topo" />
+    <VTKExporter filename="needle.vtk" listening="true" edges="0" triangles="1" quads="0" tetras="0" pointsDataFields="mecha.position" exportAtBegin="1" />
+</Node>

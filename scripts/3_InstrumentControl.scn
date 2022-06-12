@@ -1,0 +1,90 @@
+<!-- 
+Step 3:
+Instrument Control, and Python script
+-->
+<Node name="root" dt="0.05">
+
+    <RequiredPlugin pluginName="SofaPython"/>
+
+    <BackgroundSetting color="0.5 0.5 0.5" />
+
+    <VisualStyle displayFlags="showVisualModels hideForceFields" />
+
+    <CollisionPipeline name="pipeline" depth="6" verbose="0" />
+    <BruteForceDetection name="detection" />
+    <CollisionResponse name="response" response="FrictionContact" />
+    <LocalMinDistance name="proximity" alarmDistance="0.15" contactDistance="0.01" />
+
+    <FreeMotionAnimationLoop />
+    <LCPConstraintSolver tolerance="0.001" maxIt="1000"/>
+
+<Node name="Eye">
+    <Node name="eyeball_model" activated="true" >
+
+        <EulerImplicit name="odesolver" vdamping="4.0"/>
+        <CGLinearSolver iterations="10" name="linear solver" tolerance="1.0e-9" threshold="1.0e-9" />
+
+        <SparseGrid n="6 3 2" fileTopology="../models/vessel/vessel_800.obj" />
+        <HexahedronSetGeometryAlgorithms />
+        <MechanicalObject name="MecaVessel"/>
+        <DiagonalMass massDensity="1" name="computed using mass density" />
+        <PrecomputedConstraintCorrection recompute="true"/>
+        <HexahedronFEMForceField name="FEM" youngModulus="500" poissonRatio="0.49" method="polar" />
+
+        <BoxROI name="ROI" box="-1 0 -1 6 2 0" drawBoxes="1"/>
+        <FixedConstraint template="Vec3d" indices="@ROI.indices"/>
+
+        <Node name="VesselCollisionModel">
+            <MeshObjLoader filename="../models/vessel/vessel_800.obj" name="loader" />
+            <Mesh src="@loader" name="EyeballCollisionModel" />
+            <MechanicalObject src="@loader" name="EyeballState"/>
+            <Triangle name="eyeball" contactStiffness="1"/>
+            <Line name="eyeball" contactStiffness="1"/>
+            <Point name="eyeball" contactStiffness="1"/>
+            <BarycentricMapping name="vesselMapping" input="@../MecaVessel" output="@VesselCollisionModel" mapForces="false"/>
+        </Node>
+        <Node name="VesselVisualModel">
+            <VisualStyle displayFlags="showWireframe" />
+            <OglModel name="EyeballVisualModel" fileMesh="../models/vessel/vessel_5000.obj" color="0.7 0.1 0.1" />
+            <BarycentricMapping name="vesselMapping" input="@../MecaVessel" output="@VesselVisualModel" />
+        </Node>
+    </Node>
+
+
+</Node>
+
+    <Node name="InstrControl">
+        <MechanicalObject template="Rigid3d" name="DOFs" position="4.01 1.29 2  0 -1 1 1" />
+        <PythonScriptController filename="keyboardControl.py" classname="KeyboardControl"/>
+
+        <Node name="RefModel">
+            <MeshObjLoader filename="../models/needle.obj" name="loader" />
+            <Mesh src="@loader" />
+            <MechanicalObject src="@loader" name="instrumentCollisionState"/>
+            <RigidMapping input="@../DOFs" output="@instrumentCollisionState"/>
+        </Node> 
+    </Node>
+    <Node name="Instrument">
+        <EulerImplicitSolver name="ODE solver" rayleighStiffness="0.01" rayleighMass="1.0" />
+        <CGLinearSolver name="linear solver" iterations="25" tolerance="1e-10" threshold="10e-10" />
+        <MechanicalObject name="instrumentState" template="Rigid3d" position="4.01 1.29 2  0 -1 1 1" />
+        <UniformMass name="mass" totalMass="0.05" />
+        <UncoupledConstraintCorrection />
+        <Node name="VisualModel">
+            <OglModel name="InstrumentVisualModel" fileMesh="../models/needle.obj" color="0.8 0.8 0.8 1.0" />
+            <RigidMapping name="MM-VM mapping" input="@../instrumentState" output="@InstrumentVisualModel" />
+        </Node>
+        <Node name="CollisionModel">
+            <MeshObjLoader filename="../models/needle.obj" name="loader" />
+            <Mesh src="@loader" name="InstrumentCollisionModel" />
+            <MechanicalObject src="@loader" name="instrumentCollisionState" translation="0 0 0" />
+            <Line name="instrument" contactStiffness="500" contactFriction="0.01"/>
+            <Point name="instrument" contactStiffness="500" contactFriction="0.01"/>
+            <RigidMapping name="MM-CM mapping" input="@../instrumentState" output="@instrumentCollisionState" />
+        </Node>
+
+        <VectorSpringForceField object1="@InstrControl/RefModel/instrumentCollisionState" object2="@Instrument/CollisionModel/instrumentCollisionState" stiffness="1000" viscosity="0" />
+
+    </Node>
+
+</Node>
