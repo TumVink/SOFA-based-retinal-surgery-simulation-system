@@ -53,6 +53,14 @@ In case you can't remember it, "k" for "kuai" and "m" for "man" separately in Ch
 
 
 ## SpaceMouse Version:
+0. Before all, the driver of SpaceMouse for Windows10(may also compatiate with Windows8 or Windows11 ) needs to be installed in this [repo](https://github.com/johnhw/pyspacenavigator). 
+And its dependency lib [Pubwinusb](https://pypi.python.org/pypi/pywinusb/) is also needed here.
+    
+    Plug your spacemouse into the PC.
+
+    Run /scripts/usb.py to start the multi-process communication process in Python console.
+
+
   1. Load the script /scripts/scene/TotalScene_space.py into SOFA interface.
   2. Click the 'Run' button and the whole simulation will be on the fly.
   3. You can always control the needle with the spacemouse for 4 degrees. Total degrees of SpaceMouse are 6 and the mapping controlling relations are listed following. 
