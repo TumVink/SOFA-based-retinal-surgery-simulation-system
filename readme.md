@@ -67,4 +67,4 @@ In case you can't remember it, "k" for "kuai" and "m" for "man" separately in Ch
 6. Good news: since SpaceMouse is a bit more difficult than controlling with keyboard, 
 you are only a noob if you could not pass 50 points(60 for keyboard).
 
-  For an introduction video for Keyboard Control Demo please click [here](https://www.youtube.com/watch?v=gn6k4969WGo&list=UUBhSckzAoAqAJ7lWwTK7VVg&index=1).
+  For an introduction video for SpaceMouse Control Demo please click [here](https://www.youtube.com/watch?v=gn6k4969WGo&list=UUBhSckzAoAqAJ7lWwTK7VVg&index=1).
