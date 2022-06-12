@@ -12,6 +12,7 @@
 [Python 2.7 (amd64)](https://www.python.org/ftp/python/2.7.16/python-2.7.16.amd64.msi))
   3. Make sure it is accessible in the system PATH. For windows, it is located at environment variables. See tutorial [here](https://datascience.com.co/how-to-install-python-2-7-and-3-6-in-windows-10-add-python-path-281e7eae62a)
   4. Download all the files in this repo and unzip. Make sure that they are in the same folder
+  5. Download the models via the google drive [link](https://drive.google.com/file/d/1rv4pEZWJ5c9ynYa9-Uq_jwFuEMhzF2js/view?usp=sharing) and unzip into the same folder with the repo.
 
 
 ## Task Description:
