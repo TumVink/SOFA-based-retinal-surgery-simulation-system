@@ -2,7 +2,7 @@
 
 ## Description:
 
-  [Paper link](https://www.overleaf.com/project/629b234da599cd10446b7e94) (Temporary)
+  [Paper link]([https://github.com/TumVink/SOFA-based-retinal-surgery-simulation-system/blob/main/Master_Thesis_JingsongLiu_no_ack.pdf] 
 
   For now only Windows OS is supported.
   
